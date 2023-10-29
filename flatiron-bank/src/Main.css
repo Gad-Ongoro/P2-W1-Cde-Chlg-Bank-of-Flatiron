@@ -1,0 +1,74 @@
+.main{
+    width: 90%;
+    margin: auto;
+}
+
+div.search-div{
+    width: 100%;
+}
+
+form.transaction-searcher input[type="text"]{
+    width: 94%;
+    height: 30px;
+    margin: auto;
+    border-top: 1px solid rgb(22, 94, 210);
+    border-right: none;
+    border-bottom: 1px solid rgb(22, 94, 210);
+    border-left: 1px solid rgb(22, 94, 210);
+    border-radius: 4px 0 0 4px;
+}
+input[type="text"]:focus{
+    outline: 1px solid navy;
+}
+form.transaction-searcher input[type="submit"]{
+    width: 6%;
+    height: 30px;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    color: white;
+    background-color: rgb(10, 200, 50);
+}
+form.transaction-searcher input[type="submit"]:hover{
+    cursor: pointer;
+}
+
+
+form.transactions-adder{
+    display: flex;
+    flex-direction: column;
+}
+div.form2 .form2-inputs{
+    display: flex;
+    justify-content: space-between;
+}
+.form2-inputs input{
+    height: 27px;
+    text-align: center;
+}
+#form2-submit{
+    height: 27px;
+    margin: 10px auto 0;
+    color: white;
+    background-color: rgb(10, 200, 50);
+    border: none;
+    border-radius: 5px;
+}
+#form2-submit:hover{
+    cursor: pointer;
+}
+
+
+table{
+    width: 100%;
+    border: 1px solid rgba(9, 94, 230, 0.587);
+}
+tr{
+    height: 30px;
+}
+tr:nth-child(even){
+    background-color: rgba(129, 215, 247, 0.3);
+}
+table, th, td{
+    border: 1px solid rgba(9, 94, 230, 0.5);
+    border-collapse: collapse;
+}
