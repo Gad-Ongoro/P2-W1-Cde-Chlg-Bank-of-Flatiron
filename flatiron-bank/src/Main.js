@@ -19,13 +19,17 @@ function Main(){
         amount: userAmount
     };
 
+    function handleChange(){
+        
+    }
+
     useEffect(() => {
         fetch("https://carshop-edbk.onrender.com/transactions")
         .then(res => res.json())
         .then(data => {
             setTransactions(data)
         });
-    }, [])
+    })
 
     function handlePost(e){        
         fetch("https://carshop-edbk.onrender.com/transactions", {
@@ -89,6 +93,8 @@ function Main(){
     // JSX
     return(
     <div className="main">
+
+        {/* Search Transaction By Category*/}
         <div className="search-div">
             <form className="transaction-searcher" onSubmit={preventDef}>
                 <input type="text" placeholder="Search your Recent Transactions.." id="searcher" onChange={searchHandler}></input>                
@@ -98,6 +104,7 @@ function Main(){
 
         <br></br>
 
+        {/* Add Transaction */}
         <div className="form2">
             <form className="transactions-adder" onSubmit={preventDef}>
                 <div className="form2-inputs">
@@ -119,6 +126,7 @@ function Main(){
 
         <br></br>
 
+        {/* table result */}
         <div className="result-table">
             <table>
                 <tr>
