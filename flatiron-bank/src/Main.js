@@ -1,8 +1,11 @@
 import "./Main.css"
 import React, { useState, useEffect } from "react";
+import Table from "./Components/Table";
+import Form2 from "./Components/Form2";
 
 function Main(){
 
+    // states
     const [transactions, setTransactions] = useState([]);
 
     const [search, setSearcher] = useState("");
@@ -19,9 +22,23 @@ function Main(){
         amount: userAmount
     };
 
-    function handleChange(){
-        
-    }
+    function preventDef(event){
+        return(
+            event.preventDefault()
+        );
+    };
+    function dateHandler(e){
+        setUserDate(e.target.value);
+    };
+    function descHandler(e){
+        setUserDesc(e.target.value);
+    };
+    function categoryHandler(e){
+        setUserCat(e.target.value);
+    };
+    function amountHandler(e){
+        setUserAmount(e.target.value);
+    };
 
     useEffect(() => {
         fetch("https://carshop-edbk.onrender.com/transactions")
@@ -29,9 +46,9 @@ function Main(){
         .then(data => {
             setTransactions(data)
         });
-    })
+    }, [])
 
-    function handlePost(e){        
+    const handlePost = function(e){        
         fetch("https://carshop-edbk.onrender.com/transactions", {
             method: "POST",
             headers: {
@@ -42,7 +59,7 @@ function Main(){
         })
         .then(res => res.json())
         .then(data => {  
-                setTransactions(data => data)  
+                setTransactions([...transactions, data])
         });        
     };
 
@@ -57,26 +74,15 @@ function Main(){
     function searchHandler(e){
         setSearcher(e.target.value.toString());
     };
-    function searcherHandler(){
+
+    function descriptionSearcher(){
         let newTranscts = transactions.filter((transaction) => {
             return (
-                transaction.category === search
+                transaction.description.toString() === search
             )
         })
         setTransactions(newTranscts);
     }
-    function dateHandler(e){
-        setUserDate(e.target.value);
-    };
-    function descHandler(e){
-        setUserDesc(e.target.value);
-    };
-    function categoryHandler(e){
-        setUserCat(e.target.value);
-    };
-    function amountHandler(e){
-        setUserAmount(e.target.value);
-    };
 
     // row generator
     const rows = transactions.map((transaction) => {
@@ -97,50 +103,31 @@ function Main(){
         {/* Search Transaction By Category*/}
         <div className="search-div">
             <form className="transaction-searcher" onSubmit={preventDef}>
-                <input type="text" placeholder="Search your Recent Transactions.." id="searcher" onChange={searchHandler}></input>                
-                <input type="Submit" value={"Search"} id="submit" onClick={searcherHandler}></input>
+                <input type="text" placeholder="Search your Recent Transactions.." id="searcher" onChange={searchHandler}></input>             
+                <input type="Submit" value={"Search"} id="submit" onClick={descriptionSearcher}></input>
             </form>
         </div>
 
         <br></br>
 
         {/* Add Transaction */}
-        <div className="form2">
-            <form className="transactions-adder" onSubmit={preventDef}>
-                <div className="form2-inputs">
-                    <span>
-                        <label htmlFor="date">Date: </label>
-                        <input type="date" id="date" onChange={dateHandler}></input>
-                    </span>
-
-                    <input type="text" id="desc" placeholder="Description" onChange={descHandler}></input>
-
-                    <input type="text" id="category" placeholder="Category" onChange={categoryHandler}></input>
-
-                    <input type="number" id="amount" placeholder="Amount" onChange={amountHandler}></input>
-                </div>
-
-                <input type="submit" value={`Add Transaction`} id="form2-submit" onClick={handlePost}></input>
-            </form>
-        </div>
+        <Form2 
+        handlePost={handlePost}
+        dateHandler={dateHandler}
+        preventDef={preventDef}
+        descHandler={descHandler}
+        categoryHandler={categoryHandler}
+        amountHandler={amountHandler}
+        >
+        </Form2>
 
         <br></br>
 
         {/* table result */}
-        <div className="result-table">
-            <table>
-                <tr>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Amount</th>
-                </tr>
-
-                {rows}
-
-            </table>
-        </div>
+        <Table rows={rows}></Table>
     </div>
     );
 };
 export default Main;
+
+// userInfo
