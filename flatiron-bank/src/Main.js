@@ -40,6 +40,7 @@ function Main(){
         setUserAmount(e.target.value);
     };
 
+    //GET data from API, used in the table
     useEffect(() => {
         fetch("https://carshop-edbk.onrender.com/transactions")
         .then(res => res.json())
@@ -48,6 +49,7 @@ function Main(){
         });
     }, [])
 
+    //POST a new transaction
     const handlePost = function(e){        
         fetch("https://carshop-edbk.onrender.com/transactions", {
             method: "POST",
@@ -87,12 +89,12 @@ function Main(){
     // row generator
     const rows = transactions.map((transaction) => {
         return(
-            <tr key={transaction.id}>
+            <tr key={transaction.id} id={transaction.id}>
                 <td>{transaction.date}</td>
                 <td>{transaction.description}</td>
                 <td>{transaction.category}</td>
                 <td>{transaction.amount}</td>
-                <td id="delete">DEL</td>
+                <td className="delete" >DEL</td>
             </tr>
         )
     })

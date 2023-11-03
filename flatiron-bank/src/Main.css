@@ -93,12 +93,12 @@ table, th, td{
     border-collapse: collapse;
 }
 
-#delete{
+.delete{
     color: white;
     background-color: rgba(255, 50, 50, 0.6);
     text-align: center;
     cursor: pointer;
 }
-#delete:hover{
+.delete:hover{
     background-color: rgba(255, 50, 50);
 }
