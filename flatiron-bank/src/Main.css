@@ -32,6 +32,26 @@ form.transaction-searcher input[type="submit"]:hover{
     cursor: pointer;
 }
 
+.reset{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#tableReset{
+    height: 30px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: rgb(10, 200, 50);
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+#tableReset:hover{
+    transform: scale(1.05);
+}
+
 
 form.transactions-adder{
     display: flex;

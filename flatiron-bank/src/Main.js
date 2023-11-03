@@ -110,6 +110,11 @@ function Main(){
 
         <br></br>
 
+        {/* Reset Button */}
+        <div className="reset">
+            <button id="tableReset">RESET TABLE</button>
+        </div>
+
         {/* Add Transaction */}
         <Form2 
         handlePost={handlePost}
