@@ -92,6 +92,7 @@ function Main(){
                 <td>{transaction.description}</td>
                 <td>{transaction.category}</td>
                 <td>{transaction.amount}</td>
+                <td id="delete">DEL</td>
             </tr>
         )
     })
