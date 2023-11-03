@@ -96,6 +96,15 @@ function Main(){
         )
     })
 
+    //state reseter
+    function reseter(){
+        fetch("https://carshop-edbk.onrender.com/transactions")
+        .then(res => res.json())
+        .then(data => {
+            setTransactions(data)
+        });
+    }
+
     // JSX
     return(
     <div className="main">
@@ -112,7 +121,7 @@ function Main(){
 
         {/* Reset Button */}
         <div className="reset">
-            <button id="tableReset">RESET TABLE</button>
+            <button id="tableReset" onClick={reseter}>RESET TABLE</button>
         </div>
 
         {/* Add Transaction */}
