@@ -12,4 +12,4 @@
 * Filter transactions by typing into the search bar. Only transactions with a description matching the search term should be shown in the transactions table.
 
 ## API used
-https://docs.google.com/document/d/1EWN0qLfAWfgzO1N2P8H5WmrsTx0nMkhp3s-rXVESTNA/edit?usp=sharing
+https://carshop-edbk.onrender.com/transactions
