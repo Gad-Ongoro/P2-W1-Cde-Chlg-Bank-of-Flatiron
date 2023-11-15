@@ -1,15 +1,18 @@
 import "./Main.css"
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import TransactionSearcher from "./Components/TransactionSearcher";
 import Table from "./Components/Table";
 import Form2 from "./Components/Form2";
+import { bankContext } from "./App";
 
 function Main(){
+
+    let {preventDef} = useContext(bankContext);
 
     // states
     const [transactions, setTransactions] = useState([]);
 
-    const [search, setSearcher] = useState("");
-
+    const [form2Data, setForm2Data] = useState({});
     const [userDate, setUserDate] = useState("");
     const [userDesc, setUserDesc] = useState("");
     const [userCat, setUserCat] = useState("");
@@ -22,11 +25,13 @@ function Main(){
         amount: userAmount
     };
 
-    function preventDef(event){
-        return(
-            event.preventDefault()
-        );
-    };
+    function form2DataHandler(e){
+        let name = e.target.name;
+        let value = e.target.value;
+
+        setForm2Data({...form2Data, [name]:value})
+    }
+
     function dateHandler(e){
         setUserDate(e.target.value);
     };
@@ -65,26 +70,7 @@ function Main(){
         });        
     };
 
-    // event handlers
-    function preventDef(event){
-        return(
-            event.preventDefault()
-        );
-    };
-
-    //input handlers
-    function searchHandler(e){
-        setSearcher(e.target.value.toString());
-    };
-
-    function descriptionSearcher(){
-        let newTranscts = transactions.filter((transaction) => {
-            return (
-                transaction.description.toString() === search
-            )
-        })
-        setTransactions(newTranscts);
-    }
+    //DELETE
 
     // row generator
     const rows = transactions.map((transaction) => {
@@ -94,7 +80,26 @@ function Main(){
                 <td>{transaction.description}</td>
                 <td>{transaction.category}</td>
                 <td>{transaction.amount}</td>
-                <td className="delete" >DEL</td>
+                <td 
+                    className="delete" 
+                    onClick={() => {
+                        let idToDel = transaction.id;
+                        fetch(`https://carshop-edbk.onrender.com/transactions/${idToDel}`, {
+                            method: "DELETE"
+                        }).then(res => res.json())
+                        .then(() => {
+                            let newTrans = transactions.filter((transaction) => {
+                                return(
+                                    transaction.id !== idToDel
+                                )
+                            })
+                            setTransactions(newTrans);
+                        }
+                        )
+                    }} 
+                >
+                    DEL
+                </td>
             </tr>
         )
     })
@@ -113,12 +118,7 @@ function Main(){
     <div className="main">
 
         {/* Search Transaction By Category*/}
-        <div className="search-div">
-            <form className="transaction-searcher" onSubmit={preventDef}>
-                <input type="text" placeholder="Search your Recent Transactions.." id="searcher" onChange={searchHandler}></input>             
-                <input type="Submit" value={"Search"} id="submit" onClick={descriptionSearcher}></input>
-            </form>
-        </div>
+        <TransactionSearcher transactions={transactions} setTransactions={setTransactions}></TransactionSearcher>
 
         <br></br>
 
